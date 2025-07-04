@@ -95,9 +95,9 @@ public class ConfigurationPanel extends VBox {
         colsControl.getKey().setPadding(new Insets(0, 0, 0, 30));
         mapModeToggle.setPadding(new Insets(0, 0, 0, 30));
 
-        rowsControl.getKey().disableProperty().bind(this.model.getIsGameRunning());
-        colsControl.getKey().disableProperty().bind(this.model.getIsGameRunning());
-        mapModeToggle.disableProperty().bind(this.model.getIsGameRunning());
+        rowsControl.getKey().disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
+        colsControl.getKey().disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
+        mapModeToggle.disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
 
         gridConfiguration.getChildren().addAll(
                 gridLabel,
@@ -123,13 +123,15 @@ public class ConfigurationPanel extends VBox {
                 Arrays.asList(NeighborhoodType.values()),
                 this.model.getSelectedNeighborhood()
         );
-        neighborhoodSelect.disableProperty().bind(this.model.getIsGameRunning());
 
         Pair<HBox, DoubleProperty> livePercent = UiComponentFactory.createSliderBox("Live %", 0, 80, 20);
         this.model.getLivePercent().bind(livePercent.getValue());
 
         neighborhoodSelect.setPadding(new Insets(0, 0, 0, 30));
         livePercent.getKey().setPadding(new Insets(0, 0, 0, 30));
+
+        neighborhoodSelect.disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
+        livePercent.getKey().disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
 
         gameConfiguration.getChildren().addAll(
                 gameLabel,
