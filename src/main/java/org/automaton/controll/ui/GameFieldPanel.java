@@ -47,23 +47,23 @@ public class GameFieldPanel extends BorderPane {
      * @return StackPane object
      */
     private StackPane createGridBox(){
-        gameCanvas = new Canvas();
-        gc = gameCanvas.getGraphicsContext2D();
+        this.gameCanvas = new Canvas();
+        this.gc = this.gameCanvas.getGraphicsContext2D();
 
         StackPane canvasContainer = new StackPane();
-        canvasContainer.getChildren().add(gameCanvas);
+        canvasContainer.getChildren().add(this.gameCanvas);
 
         BorderPane.setMargin(canvasContainer, new Insets(0, 20, 20, 20));
-        StackPane.setAlignment(gameCanvas, Pos.CENTER);
+        StackPane.setAlignment(this.gameCanvas, Pos.CENTER);
 
-        gameCanvas.widthProperty().bind(canvasContainer.widthProperty());
-        gameCanvas.heightProperty().bind(canvasContainer.heightProperty());
+        this.gameCanvas.widthProperty().bind(canvasContainer.widthProperty());
+        this.gameCanvas.heightProperty().bind(canvasContainer.heightProperty());
 
-        model.getRows().addListener((obs, oldVal, newVal) -> redraw());
-        model.getCols().addListener((obs, oldVal, newVal) -> redraw());
+        this.model.getRows().addListener((obs, oldVal, newVal) -> redraw());
+        this.model.getCols().addListener((obs, oldVal, newVal) -> redraw());
 
-        gameCanvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
-        gameCanvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
+        this.gameCanvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
+        this.gameCanvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
 
         redraw();
         return canvasContainer;
@@ -88,7 +88,7 @@ public class GameFieldPanel extends BorderPane {
 
         statsBox.getChildren().addAll(epochLabel, liveDeadCount);
 
-        epochLabel.textProperty().bind(Bindings.format("Epoch: %d", model.getEpochCount()));
+        epochLabel.textProperty().bind(Bindings.format("Epoch: %d", this.model.getEpochCount()));
 
         return statsBox;
     }
@@ -97,14 +97,14 @@ public class GameFieldPanel extends BorderPane {
      * The main "Magic" of the dynamic grid creation and update. Is used to make the UI actually do its work
      */
     private void redraw(){
-        int rows = model.getRowsPrimitive();
-        int cols = model.getColsPrimitive();
+        int rows = this.model.getRowsPrimitive();
+        int cols = this.model.getColsPrimitive();
 
         // basically, we delete grid and re-draw each time
-        gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
+        this.gc.clearRect(0, 0, this.gameCanvas.getWidth(), this.gameCanvas.getHeight());
 
-        double cellWidth = gameCanvas.getWidth() / cols;
-        double cellHeight = gameCanvas.getHeight() / rows;
+        double cellWidth = this.gameCanvas.getWidth() / cols;
+        double cellHeight = this.gameCanvas.getHeight() / rows;
 
         // we make squares to fit into the grid. SO need to make with smaller from two options
         double cellSize = Math.min(cellWidth, cellHeight);
@@ -113,26 +113,26 @@ public class GameFieldPanel extends BorderPane {
         double totalGridHeight = cellSize * rows;
 
         // fancy way of making the grid be centered by making coordinate always considers the offset from the side
-        double offsetX = (gameCanvas.getWidth() - totalGridWidth) / 2.0;
-        double offsetY = (gameCanvas.getHeight() - totalGridHeight) / 2.0;
+        double offsetX = (this.gameCanvas.getWidth() - totalGridWidth) / 2.0;
+        double offsetY = (this.gameCanvas.getHeight() - totalGridHeight) / 2.0;
 
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 // here the live dead logic will be implemented, for tests we make just white
-                gc.setFill(Color.WHITE);
-                gc.fillRect(offsetX + c * cellSize, offsetY + r * cellSize, cellSize, cellSize); // remember about offset, when calculation
+                this.gc.setFill(Color.WHITE);
+                this.gc.fillRect(offsetX + c * cellSize, offsetY + r * cellSize, cellSize, cellSize); // remember about offset, when calculation
             }
         }
 
         // optional grid, for now mandatory to see that code works (due to only white cells)
-        gc.setStroke(Color.GRAY);
-        gc.setLineWidth(0.5);
+        this.gc.setStroke(Color.GRAY);
+        this.gc.setLineWidth(0.5);
         for (int r = 0; r <= rows; r++) {
-            gc.strokeLine(offsetX, offsetY + r * cellSize, offsetX + totalGridWidth, offsetY + r * cellSize);
+            this.gc.strokeLine(offsetX, offsetY + r * cellSize, offsetX + totalGridWidth, offsetY + r * cellSize);
         }
         for (int c = 0; c <= cols; c++) {
-            gc.strokeLine(offsetX + c * cellSize, offsetY, offsetX + c * cellSize, offsetY + totalGridHeight);
+            this.gc.strokeLine(offsetX + c * cellSize, offsetY, offsetX + c * cellSize, offsetY + totalGridHeight);
         }
 
 
