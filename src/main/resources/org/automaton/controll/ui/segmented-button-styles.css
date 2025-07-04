@@ -1,0 +1,36 @@
+/* Base style for all segmented toggle buttons */
+.segmented-button-group .toggle-button {
+    -fx-text-fill: #555;
+    -fx-border-width: 1px;
+    -fx-padding: 8 15;
+    -fx-border-insets: 0;
+    -fx-background-color: #e0e0e0;
+    -fx-border-color: #bbb;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+/* Style for the first (leftmost) button in the group */
+.segmented-button-group .left-segment {
+    -fx-background-radius: 5 0 0 5;
+    -fx-border-radius: 5 0 0 5;
+}
+
+/* Style for the last (rightmost) button in the group */
+.segmented-button-group .right-segment {
+    -fx-background-radius: 0 5 5 0;
+    -fx-border-radius: 0 5 5 0;
+}
+
+/* Style for the selected state */
+.segmented-button-group .toggle-button:selected {
+    -fx-background-color: #4CAF50;
+    -fx-border-color: #388E3C;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Optional: Hover effect */
+.segmented-button-group .toggle-button:hover {
+    -fx-opacity: 0.9;
+}
