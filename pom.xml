@@ -7,7 +7,7 @@
     <groupId>org.automaton</groupId>
     <artifactId>controll</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>controll</name>
+    <name>control</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -117,11 +117,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok-maven</artifactId>
-            <version>1.18.20.0</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -137,7 +132,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.20.0</version> <!-- Use a property or hardcode the version -->
+                            <version>1.18.38</version> <!-- Use a property or hardcode the version -->
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
