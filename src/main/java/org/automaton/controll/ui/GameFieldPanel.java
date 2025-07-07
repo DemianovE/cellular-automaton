@@ -62,6 +62,7 @@ public class GameFieldPanel extends BorderPane {
         this.model.getRows().addListener((obs, oldVal, newVal) -> redraw());
         this.model.getCols().addListener((obs, oldVal, newVal) -> redraw());
         this.model.getLivePercent().addListener((obs, oldVal, newVal) -> redraw());
+        this.model.getEpochCount().addListener((obs, oldVal, newVal) -> redraw());
 
         this.gameCanvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
         this.gameCanvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
