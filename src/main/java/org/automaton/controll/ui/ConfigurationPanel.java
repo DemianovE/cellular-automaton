@@ -124,7 +124,7 @@ public class ConfigurationPanel extends VBox {
                 this.model.getSelectedNeighborhood()
         );
 
-        Pair<HBox, DoubleProperty> livePercent = UiComponentFactory.createSliderBox("Live %", 0, 80, 20);
+        Pair<HBox, DoubleProperty> livePercent = UiComponentFactory.createSliderBox("Live %", 10, 80, 20);
         this.model.getLivePercent().bind(livePercent.getValue());
 
         neighborhoodSelect.setPadding(new Insets(0, 0, 0, 30));

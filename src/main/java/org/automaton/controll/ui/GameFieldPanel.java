@@ -61,6 +61,7 @@ public class GameFieldPanel extends BorderPane {
 
         this.model.getRows().addListener((obs, oldVal, newVal) -> redraw());
         this.model.getCols().addListener((obs, oldVal, newVal) -> redraw());
+        this.model.getLivePercent().addListener((obs, oldVal, newVal) -> redraw());
 
         this.gameCanvas.widthProperty().addListener((obs, oldVal, newVal) -> redraw());
         this.gameCanvas.heightProperty().addListener((obs, oldVal, newVal) -> redraw());
@@ -97,6 +98,12 @@ public class GameFieldPanel extends BorderPane {
      * The main "Magic" of the dynamic grid creation and update. Is used to make the UI actually do its work
      */
     private void redraw(){
+        // generate when changing the size of the grid
+        if (this.model.getEpochCountPrimitive() == 0) {
+            this.model.reshapeDataGrip();
+            this.model.resetDataGrid();
+        }
+
         int rows = this.model.getRowsPrimitive();
         int cols = this.model.getColsPrimitive();
 
@@ -120,7 +127,11 @@ public class GameFieldPanel extends BorderPane {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 // here the live dead logic will be implemented, for tests we make just white
-                this.gc.setFill(Color.WHITE);
+
+                if (this.model.getDataGridCoordinate(r, c) == 1) {
+                    this.gc.setFill(Color.BLACK);
+                } else { this.gc.setFill(Color.WHITE); }
+
                 this.gc.fillRect(offsetX + c * cellSize, offsetY + r * cellSize, cellSize, cellSize); // remember about offset, when calculation
             }
         }

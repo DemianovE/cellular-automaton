@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.automaton.controll.game.GameStatus;
 import org.automaton.controll.game.MapMode;
 import org.automaton.controll.game.NeighborhoodType;
+import java.util.Random;
 
 /**
  * Singleton model which is holding all data for the game for the components to talk to.
@@ -27,9 +28,10 @@ public class GameConfigModel {
     private final SimpleObjectProperty<NeighborhoodType> selectedNeighborhood = new SimpleObjectProperty<>(NeighborhoodType.VON_NEUMANN);
     private final SimpleObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>(GameStatus.STOPED);
 
-    private final SimpleBooleanProperty isGameRunning = new  SimpleBooleanProperty(false);
-
     private final SimpleIntegerProperty epochCount = new  SimpleIntegerProperty(0);
+    private int[] dataGrid;
+
+    private Random randomNo = new Random();
 
     private GameConfigModel() {}
 
@@ -37,10 +39,45 @@ public class GameConfigModel {
         return INSTANCE;
     }
 
-    public void setIsGameRunning(boolean isGameRunning) { this.isGameRunning.set(isGameRunning); }
     public void setGameStatus(GameStatus gameStatus) { this.gameStatus.set(gameStatus); }
 
     public int getRowsPrimitive(){ return this.rows.get(); }
     public int getColsPrimitive(){ return this.cols.get(); }
+    public int getLivePercentPrimitive(){ return this.livePercent.get(); }
+    public int getEpochCountPrimitive(){ return this.epochCount.get(); }
+
+    public void reshapeDataGrip(){
+        this.dataGrid = new int[this.getRowsPrimitive() * this.getColsPrimitive()];
+    }
+
+    public void resetDataGrid(){
+        for (int i=0; i < this.getRowsPrimitive() * this.getColsPrimitive(); i++) { this.dataGrid[i] = randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0; };
+    }
+
+    /**
+     * The function is a bit tricky. We use a simple formula for the change for the 2D coordinate into 1D, to save in memory only the 1D array pointer and not map of pointers,
+     * But we have finite and infinite maps, based on that we have a rule, for the out of bounds, if infinite we reset the coordinate to navigate the torus, in case of finite,
+     * draft the 1 or 0 in the random selection.
+     * @param x - the roed coordinate
+     * @param y -  the column coordinate
+     * @return the value of 1 or 0 from the grid map
+     */
+    public int getDataGridCoordinate(int x, int y){
+        x = checkCoordinate(x, this.getRowsPrimitive());
+        y = checkCoordinate(y, this.getColsPrimitive());
+
+        return this.dataGrid[y + x*y];
+    }
+
+    private int checkCoordinate(int coordinate, int max) {
+        if (coordinate < 0 || coordinate >= max){
+            if (this.getSelectedMode().get() == MapMode.FINITE){
+                return randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0; // draft new number based on the set chance
+            } else {
+                if (coordinate < 0 ) { return max - coordinate; } // switch to the end of the coordinate line
+                else { return coordinate - max; } // switch to the start of the coordinate panel
+            }
+        } else { return coordinate; }
+    }
 
 }
