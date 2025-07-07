@@ -1,14 +1,12 @@
 package org.automaton.controll.model;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.automaton.controll.game.GameStatus;
 import org.automaton.controll.game.MapMode;
-import org.automaton.controll.game.NeighborhoodType;
+import org.automaton.controll.game.neighborhood.NeighborhoodType;
 import java.util.Random;
 
 /**
@@ -29,7 +27,7 @@ public class GameConfigModel {
     private final SimpleObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>(GameStatus.STOPED);
 
     private final SimpleIntegerProperty epochCount = new  SimpleIntegerProperty(0);
-    private int[] dataGrid;
+    private int[][] dataGrid;
 
     private Random randomNo = new Random();
 
@@ -47,11 +45,17 @@ public class GameConfigModel {
     public int getEpochCountPrimitive(){ return this.epochCount.get(); }
 
     public void reshapeDataGrip(){
-        this.dataGrid = new int[this.getRowsPrimitive() * this.getColsPrimitive()];
+        this.dataGrid = new int[this.getRowsPrimitive()][this.getColsPrimitive()];
     }
 
     public void resetDataGrid(){
-        for (int i=0; i < this.getRowsPrimitive() * this.getColsPrimitive(); i++) { this.dataGrid[i] = randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0; };
+        for (int x=0; x < this.getRowsPrimitive(); x++) {
+            for (int y=0; y < this.getColsPrimitive(); y++) { this.dataGrid[x][y] = randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0; };
+        }
+    }
+
+    public void incrementEpochs(){
+        this.epochCount.set(this.epochCount.get() + 1);
     }
 
     /**
@@ -66,7 +70,7 @@ public class GameConfigModel {
         x = checkCoordinate(x, this.getRowsPrimitive());
         y = checkCoordinate(y, this.getColsPrimitive());
 
-        return this.dataGrid[y + x*y];
+        return this.dataGrid[x][y];
     }
 
     private int checkCoordinate(int coordinate, int max) {
@@ -74,10 +78,13 @@ public class GameConfigModel {
             if (this.getSelectedMode().get() == MapMode.FINITE){
                 return randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0; // draft new number based on the set chance
             } else {
-                if (coordinate < 0 ) { return max - coordinate; } // switch to the end of the coordinate line
+                if (coordinate < 0 ) { return max + coordinate; } // switch to the end of the coordinate line
                 else { return coordinate - max; } // switch to the start of the coordinate panel
             }
         } else { return coordinate; }
     }
+
+    public void setDataGridCoordinate(int x, int y, int newValue) { this.dataGrid[x][y] = newValue; }
+    public void setEpochCount(int epochCount){ this.epochCount.set(epochCount); }
 
 }
