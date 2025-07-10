@@ -1,4 +1,4 @@
-package org.automaton.controll.factories;
+package org.automaton.control.factories;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import org.automaton.controll.common.HasDisplayName;
+import org.automaton.control.common.HasDisplayName;
 
 import java.util.List;
 
@@ -61,6 +61,21 @@ public class UiComponentFactory {
     public static Label createLabel(String text, int textSize) {
         Label label = new Label(text);
         label.setStyle("-fx-font-size: " + textSize + "px;");
+        return label;
+    }
+
+    /**
+     * Function to make the label with tooltip
+     * @param tooltipText - the actual text of the tooltip
+     * @param labelText - regular label text
+     * @param labelSize - label text size
+     * @return Label object instance
+     */
+    public static Label createLabelWithTooltip(String tooltipText, String labelText, int labelSize){
+        Label label = createLabel(labelText, labelSize);
+        Tooltip tooltip = new Tooltip(tooltipText);
+        Tooltip.install(label, tooltip);
+
         return label;
     }
 

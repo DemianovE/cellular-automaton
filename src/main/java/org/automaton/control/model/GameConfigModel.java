@@ -1,12 +1,12 @@
-package org.automaton.controll.model;
+package org.automaton.control.model;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.automaton.controll.game.GameStatus;
-import org.automaton.controll.game.MapMode;
-import org.automaton.controll.game.neighborhood.NeighborhoodType;
+import org.automaton.control.game.GameStatus;
+import org.automaton.control.game.MapMode;
+import org.automaton.control.game.neighborhood.NeighborhoodType;
 import java.util.Random;
 
 /**
@@ -27,6 +27,7 @@ public class GameConfigModel {
     private final SimpleObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>(GameStatus.STOPED);
 
     private final SimpleIntegerProperty epochCount = new  SimpleIntegerProperty(0);
+    private final SimpleIntegerProperty LiveCount = new  SimpleIntegerProperty(0);
     private int[][] dataGrid;
 
     private Random randomNo = new Random();
@@ -76,7 +77,7 @@ public class GameConfigModel {
     private int checkCoordinate(int coordinate, int max) {
         if (coordinate < 0 || coordinate >= max){
             if (this.getSelectedMode().get() == MapMode.FINITE){
-                return randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0; // draft new number based on the set chance
+                return 0;
             } else {
                 if (coordinate < 0 ) { return max + coordinate; } // switch to the end of the coordinate line
                 else { return coordinate - max; } // switch to the start of the coordinate panel
@@ -86,5 +87,6 @@ public class GameConfigModel {
 
     public void setDataGridCoordinate(int x, int y, int newValue) { this.dataGrid[x][y] = newValue; }
     public void setEpochCount(int epochCount){ this.epochCount.set(epochCount); }
+    public void setLiveCount(int  liveCount){ this.LiveCount.set(liveCount); }
 
 }
