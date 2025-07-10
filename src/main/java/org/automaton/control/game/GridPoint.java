@@ -1,4 +1,4 @@
-package org.automaton.controll.game;
+package org.automaton.control.game;
 
 /**
  * A simple record representing a point in the Grid

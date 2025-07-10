@@ -1,4 +1,4 @@
-package org.automaton.controll.ui;
+package org.automaton.control.ui;
 
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -10,8 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.automaton.controll.factories.UiComponentFactory;
-import org.automaton.controll.model.GameConfigModel;
+import org.automaton.control.factories.UiComponentFactory;
+import org.automaton.control.model.GameConfigModel;
 
 /**
  * Main function to make the UI component of game field
@@ -83,7 +83,7 @@ public class GameFieldPanel extends BorderPane {
         statsBox.setStyle("-fx-background-color: #444; -fx-text-fill: white; ");
 
         Label epochLabel = UiComponentFactory.createLabel("Epoch: 0", 14);
-        Label liveDeadCount = UiComponentFactory.createLabel("Live/Dead Count: 0", 14);
+        Label liveDeadCount = UiComponentFactory.createLabel("Live Count: 0", 14);
 
         epochLabel.setStyle("-fx-text-fill: white;");
         liveDeadCount.setStyle("-fx-text-fill: white;");
@@ -91,6 +91,7 @@ public class GameFieldPanel extends BorderPane {
         statsBox.getChildren().addAll(epochLabel, liveDeadCount);
 
         epochLabel.textProperty().bind(Bindings.format("Epoch: %d", this.model.getEpochCount()));
+        liveDeadCount.textProperty().bind(Bindings.format("Live Count: %d", this.model.getLiveCount()));
 
         return statsBox;
     }

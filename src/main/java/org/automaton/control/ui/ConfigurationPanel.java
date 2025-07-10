@@ -1,6 +1,5 @@
-package org.automaton.controll.ui;
+package org.automaton.control.ui;
 
-import com.almasb.fxgl.dsl.EventBuilder;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.geometry.Insets;
@@ -12,11 +11,11 @@ import javafx.util.Pair;
 
 import lombok.Getter;
 
-import org.automaton.controll.factories.UiComponentFactory;
-import org.automaton.controll.game.GameStatus;
-import org.automaton.controll.game.MapMode;
-import org.automaton.controll.game.NeighborhoodType;
-import org.automaton.controll.model.GameConfigModel;
+import org.automaton.control.factories.UiComponentFactory;
+import org.automaton.control.game.GameStatus;
+import org.automaton.control.game.MapMode;
+import org.automaton.control.game.neighborhood.NeighborhoodType;
+import org.automaton.control.model.GameConfigModel;
 
 import java.util.Objects;
 import java.util.Arrays;

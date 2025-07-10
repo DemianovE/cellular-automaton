@@ -1,6 +1,6 @@
-package org.automaton.controll.game.neighborhood;
+package org.automaton.control.game.neighborhood;
 
-import org.automaton.controll.game.GridPoint;
+import org.automaton.control.game.GridPoint;
 
 import java.util.ArrayList;
 import java.util.List;

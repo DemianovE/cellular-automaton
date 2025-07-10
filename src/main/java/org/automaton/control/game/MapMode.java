@@ -1,4 +1,4 @@
-package org.automaton.controll.game;
+package org.automaton.control.game;
 
 import lombok.Getter;
 

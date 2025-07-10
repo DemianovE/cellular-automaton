@@ -1,16 +1,15 @@
-package org.automaton.controll;
+package org.automaton.control;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import org.automaton.controll.game.GameEngine;
-import org.automaton.controll.game.GameStatus;
-import org.automaton.controll.model.GameConfigModel;
-import org.automaton.controll.ui.ConfigurationPanel;
-import org.automaton.controll.ui.GameFieldPanel;
+import org.automaton.control.game.GameEngine;
+import org.automaton.control.game.GameStatus;
+import org.automaton.control.model.GameConfigModel;
+import org.automaton.control.ui.ConfigurationPanel;
+import org.automaton.control.ui.GameFieldPanel;
 
 import java.io.IOException;
 

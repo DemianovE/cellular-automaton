@@ -1,7 +1,7 @@
-package org.automaton.controll.game.neighborhood;
+package org.automaton.control.game.neighborhood;
 
 import lombok.Getter;
-import org.automaton.controll.common.HasDisplayName;
+import org.automaton.control.common.HasDisplayName;
 
 /**
  * The enum to hold the strategy type amd the pointer to the object

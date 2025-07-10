@@ -1,7 +1,7 @@
-package org.automaton.controll.game;
+package org.automaton.control.game;
 
 import lombok.Getter;
-import org.automaton.controll.common.HasDisplayName;
+import org.automaton.control.common.HasDisplayName;
 
 @Getter
 public enum GameStatus implements HasDisplayName {

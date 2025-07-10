@@ -1,7 +1,7 @@
-package org.automaton.controll.game.neighborhood;
+package org.automaton.control.game.neighborhood;
 
 import lombok.Getter;
-import org.automaton.controll.game.GridPoint;
+import org.automaton.control.game.GridPoint;
 
 import java.util.List;
 
