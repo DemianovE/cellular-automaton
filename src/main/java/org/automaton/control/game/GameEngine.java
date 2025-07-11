@@ -1,6 +1,7 @@
 package org.automaton.control.game;
 
 import javafx.application.Platform;
+import org.automaton.control.enums.InputType;
 import org.automaton.control.game.neighborhood.NeighborhoodStrategy;
 import org.automaton.control.model.GameConfigModel;
 
@@ -62,7 +63,11 @@ public class GameEngine {
         cancelCurrentTimer();
 
         this.model.setEpochCount(0);
-        this.model.resetDataGrid();
+        if (this.model.getGameInputType().get() == InputType.AUTOMATIC){
+            this.model.resetDataGrid();
+        } else {
+            this.model.resetDataToZero();
+        }
     }
 
     public void performOneEpochIteration(){
