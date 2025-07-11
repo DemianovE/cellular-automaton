@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import org.automaton.control.game.GameEngine;
-import org.automaton.control.game.GameStatus;
+import org.automaton.control.enums.GameStatus;
 import org.automaton.control.model.GameConfigModel;
 import org.automaton.control.ui.ConfigurationPanel;
 import org.automaton.control.ui.GameFieldPanel;
