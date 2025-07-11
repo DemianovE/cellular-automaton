@@ -11,10 +11,11 @@ import javafx.util.Pair;
 
 import lombok.Getter;
 
+import org.automaton.control.enums.InputType;
 import org.automaton.control.factories.UiComponentFactory;
-import org.automaton.control.game.GameStatus;
-import org.automaton.control.game.MapMode;
-import org.automaton.control.game.neighborhood.NeighborhoodType;
+import org.automaton.control.enums.GameStatus;
+import org.automaton.control.enums.MapMode;
+import org.automaton.control.enums.NeighborhoodType;
 import org.automaton.control.model.GameConfigModel;
 
 import java.util.Objects;
@@ -35,6 +36,7 @@ public class ConfigurationPanel extends VBox {
     @Getter private Button startButton = new Button("Start");
     @Getter private Button resetButton = new Button("Reset");
     @Getter private Button pauseButton = new Button("Pause");
+    @Getter private Button randomiseButton = new Button("Randomise");
 
     /**
      * Creates a new ConfigurationPanel instance and sets the children
@@ -89,20 +91,37 @@ public class ConfigurationPanel extends VBox {
                 this.model.getSelectedMode()
         );
 
+        HBox gridModeToggle = UiComponentFactory.createToggleButtonsBox(
+                "Input",
+                14,
+                InputType.AUTOMATIC,
+                InputType.AUTOMATIC.getDisplayName(),
+                InputType.MANUAL,
+                InputType.MANUAL.getDisplayName(),
+                this.model.getGameInputType()
+        );
+
         // move all sub-label items on the right
         rowsControl.getKey().setPadding(new Insets(0, 0, 0, 30));
         colsControl.getKey().setPadding(new Insets(0, 0, 0, 30));
         mapModeToggle.setPadding(new Insets(0, 0, 0, 30));
+        gridModeToggle.setPadding(new Insets(0, 0, 0, 30));
+        this.randomiseButton.setPadding(new Insets(0, 0, 0, 30));
 
         rowsControl.getKey().disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
         colsControl.getKey().disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
         mapModeToggle.disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
+        gridModeToggle.disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
+        this.randomiseButton.disableProperty().bind(this.model.getGameStatus().isNotEqualTo(GameStatus.STOPED));
 
         gridConfiguration.getChildren().addAll(
                 gridLabel,
                 rowsControl.getKey(),
                 colsControl.getKey(),
-                mapModeToggle
+                mapModeToggle,
+                gridModeToggle,
+                this.randomiseButton
+
         );
         return gridConfiguration;
     }
