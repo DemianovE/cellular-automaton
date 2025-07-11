@@ -15,15 +15,15 @@ public class GameEngineTest {
 
     @BeforeEach
     public void setup(){
-        gameEngine = GameEngine.getInstance();
-        model = GameConfigModel.getInstance();
+        this.gameEngine = GameEngine.getInstance();
+        this.model = GameConfigModel.getInstance();
 
-        model.getRows().set(5);
-        model.getCols().set(5);
+        this.model.getRows().set(5);
+        this.model.getCols().set(5);
 
-        model.getLivePercent().set(0);
-        model.getGameStatus().set(GameStatus.STOPED);
-        model.getEpochCount().set(0);
+        this.model.getLivePercent().set(0);
+        this.model.getGameStatus().set(GameStatus.STOPED);
+        this.model.getEpochCount().set(0);
 
         int[][] grid = {
                 {0, 0, 0, 0, 0},
@@ -33,36 +33,36 @@ public class GameEngineTest {
                 {0, 1, 1, 0, 0}
         };
 
-        model.setDataGrid(grid);
-        model.getSelectedNeighborhood().set(NeighborhoodType.MOORE);
+        this.model.getGridData().set(grid);
+        this.model.getSelectedNeighborhood().set(NeighborhoodType.MOORE);
 
-        gameEngine.setSelectedNeighborhoodStrategy();
+        this.gameEngine.setSelectedNeighborhoodStrategy();
     }
 
     @Test
     void calculateNextStepCellStatus_LiveCellUnderpopulated_Dies() {
-        assertThat(gameEngine.performOnePointIteration(1, 1)).isEqualTo(0);
+        assertThat(this.gameEngine.performOnePointIteration(1, 1)).isEqualTo(0);
     }
 
     @Test
     void calculateNextStepCellStatus_LiveCellOverpopulated_Dies(){
-        assertThat(gameEngine.performOnePointIteration(4, 2)).isEqualTo(0);
+        assertThat(this.gameEngine.performOnePointIteration(4, 2)).isEqualTo(0);
     }
 
     @Test
     void calculateNextStepCellStatus_LiveCellSurvival_Survives(){
-        assertThat(gameEngine.performOnePointIteration(3, 1)).isEqualTo(1);
+        assertThat(this.gameEngine.performOnePointIteration(3, 1)).isEqualTo(1);
     }
 
     @Test
     void calculateNextStepCellStatus_DeadCellBorn_Born(){
-        assertThat(gameEngine.performOnePointIteration(2, 1)).isEqualTo(1);
+        assertThat(this.gameEngine.performOnePointIteration(2, 1)).isEqualTo(1);
     }
 
 
     @Test
     void calculateOneFullEpoch(){
-        gameEngine.performOneEpochIteration();
+        this.gameEngine.performOneEpochIteration();
 
         int[][] resultGrid = {
                 {0, 0, 0, 0, 0},
@@ -72,6 +72,6 @@ public class GameEngineTest {
                 {0, 1, 0, 0, 0}
         };
 
-        assertThat(model.getDataGrid()).isEqualTo(resultGrid);
+        assertThat(model.getGridData().get()).isEqualTo(resultGrid);
     }
 }
