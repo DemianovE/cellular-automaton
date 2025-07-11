@@ -80,7 +80,7 @@ public class GameEngine {
         }
 
         model.setLiveCount(survive);
-        model.setDataGrid(newGrid);
+        model.getGridData().set(newGrid);
     }
 
     /**
