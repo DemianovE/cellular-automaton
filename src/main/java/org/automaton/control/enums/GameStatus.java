@@ -1,4 +1,4 @@
-package org.automaton.control.game;
+package org.automaton.control.enums;
 
 import lombok.Getter;
 import org.automaton.control.common.HasDisplayName;

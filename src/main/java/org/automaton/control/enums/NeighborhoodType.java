@@ -1,7 +1,11 @@
-package org.automaton.control.game.neighborhood;
+package org.automaton.control.enums;
 
 import lombok.Getter;
 import org.automaton.control.common.HasDisplayName;
+import org.automaton.control.game.neighborhood.MooreStrategy;
+import org.automaton.control.game.neighborhood.NeighborhoodStrategy;
+import org.automaton.control.game.neighborhood.VonNeumannExtendedStrategy;
+import org.automaton.control.game.neighborhood.VonNeumannStrategy;
 
 /**
  * The enum to hold the strategy type amd the pointer to the object
