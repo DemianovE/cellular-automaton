@@ -1,6 +1,7 @@
 package org.automaton.control.game;
 
-import org.automaton.control.game.neighborhood.NeighborhoodType;
+import org.automaton.control.enums.GameStatus;
+import org.automaton.control.enums.NeighborhoodType;
 import org.automaton.control.model.GameConfigModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
