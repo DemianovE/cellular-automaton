@@ -41,7 +41,7 @@ public class GameEngine {
             }
         };
 
-        gameLoopTimer.scheduleAtFixedRate(gameLoopTask, 0, 100);
+        gameLoopTimer.scheduleAtFixedRate(gameLoopTask, 0, 200);
     }
 
     /**
@@ -63,11 +63,7 @@ public class GameEngine {
         cancelCurrentTimer();
 
         this.model.setEpochCount(0);
-        if (this.model.getGameInputType().get() == InputType.AUTOMATIC){
-            this.model.resetDataGrid();
-        } else {
-            this.model.resetDataToZero();
-        }
+        this.model.resetDataGrid();
     }
 
     public void performOneEpochIteration(){

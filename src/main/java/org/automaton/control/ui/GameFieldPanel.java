@@ -91,11 +91,8 @@ public class GameFieldPanel extends BorderPane {
         this.model.getGridData().addListener((obs, oldVal, newVal) -> redraw());
 
         this.model.getGameInputType().addListener((obs, oldVal, newVal) -> {
-            if (newVal == InputType.MANUAL) { this.model.resetDataToZero(); }
-            else {
-                this.model.resetDataGrid();
-                redraw();
-            }
+            this.model.resetDataGrid();
+            redraw();
         });
 
         this.gameCanvas.widthProperty().addListener((obs, oldVal, newVal) -> {

@@ -55,13 +55,14 @@ public class GameConfigModel {
 
     public void resetDataGrid(){
         for (int x=0; x < this.getRowsPrimitive(); x++) {
-            for (int y=0; y < this.getColsPrimitive(); y++) { this.setDataGridCoordinate(x, y, randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0); };
-        }
-    }
+            for (int y=0; y < this.getColsPrimitive(); y++) {
+                if (this.getGameInputType().get() == InputType.AUTOMATIC) {
+                    this.setDataGridCoordinate(x, y, randomNo.nextDouble() < (double) this.getLivePercentPrimitive() / 100 ? 1 : 0);
+                } else {
+                    this.setDataGridCoordinate(x, y, 0);
+                }
 
-    public void resetDataToZero(){
-        for (int x=0; x < this.getRowsPrimitive(); x++) {
-            for (int y=0; y < this.getColsPrimitive(); y++) { this.setDataGridCoordinate(x, y, 0); };
+            };
         }
     }
 
